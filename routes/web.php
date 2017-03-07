@@ -19,37 +19,37 @@ Route::pattern('id', '[0-9]+');
 
 //首頁
 Route::get('/', ['as' => 'home.index', function() {
-        return 'home.index';
+        return view('index');
     }]);
 
 //關於本站
 Route::get('about', ['as' => 'about.index', function() {
-        return 'about.index';
+        return view('about');
     }]);
 
 //文章總覽
 Route::get('posts', ['as' => 'posts.index', function() {
-        return 'posts.index';
+        return view('index');
     }]);
 
 //熱門文章
 Route::get('hot', ['as' => 'posts.hot', function() {
-        return 'posts.hot';
+        return  view('index');
     }]);
 
 //隨機文章
 Route::get('random', ['as' => 'posts.random', function() {
-        return 'posts.random';
+        return view('post');
     }]);
 
 //文章詳細
 Route::get('posts/{id}', ['as' => 'posts.show', function($id) {
-        return 'posts.show: ' . $id;
+        return view('posts');
     }]);
 
 //新增文章
 Route::get('posts/create', ['as' => 'posts.create', function() {
-        return 'posts.create';
+        return view('contact');
     }]);
 
 //儲存文章
@@ -59,7 +59,7 @@ Route::post('posts', ['as' => 'posts.store', function() {
 
 //編輯文章
 Route::get('posts/{id}/edit', ['as' => 'posts.edit', function($id) {
-        return 'posts.edit: ' . $id;
+        return view('contact');
     }]);
 
 //更新文章
