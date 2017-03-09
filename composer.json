@@ -1,11 +1,12 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
-    "license": "MIT",
+    "name": "alan/blog",
+    "description": "my blog.",
+    "keywords": ["framework", "laravel","blog"],
+    "license": "proprietary",
     "type": "project",
     "require": {
         "php": ">=5.6.4",
+        "guidovanbiemen/laravel-whoops": "1.0",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0"
     },

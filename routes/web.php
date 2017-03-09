@@ -11,45 +11,45 @@
   |
  */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
 
 Route::pattern('id', '[0-9]+');
 
 //首頁
 Route::get('/', ['as' => 'home.index', function() {
-        return view('index');
+        return view('posts.index');
     }]);
 
 //關於本站
 Route::get('about', ['as' => 'about.index', function() {
-        return view('about');
+        return view('about.index');
     }]);
 
 //文章總覽
 Route::get('posts', ['as' => 'posts.index', function() {
-        return view('index');
+        return view('posts.index');
     }]);
 
 //熱門文章
 Route::get('hot', ['as' => 'posts.hot', function() {
-        return  view('index');
+        return view('posts.index');
     }]);
 
 //隨機文章
 Route::get('random', ['as' => 'posts.random', function() {
-        return view('post');
+        $id = rand(1, 10);
+        $data = compact('id');
+        return view('posts.show', $data);
     }]);
 
 //文章詳細
 Route::get('posts/{id}', ['as' => 'posts.show', function($id) {
-        return view('posts');
+        $data = compact('id');
+        return view('posts.show', $data);
     }]);
 
 //新增文章
 Route::get('posts/create', ['as' => 'posts.create', function() {
-        return view('contact');
+        return view('posts.create');
     }]);
 
 //儲存文章
@@ -59,7 +59,8 @@ Route::post('posts', ['as' => 'posts.store', function() {
 
 //編輯文章
 Route::get('posts/{id}/edit', ['as' => 'posts.edit', function($id) {
-        return view('contact');
+        $data = compact('id');
+        return view('contact', $data);
     }]);
 
 //更新文章
