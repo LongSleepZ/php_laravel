@@ -7,16 +7,33 @@ use Illuminate\Http\Request;
 class PostsController extends Controller {
 
     public function index() {
-        return view('posts.index');
+        $postType = '文章總覽';
+
+        $posts = \App\Models\Post::orderBy('created_at', 'desc')->get();
+
+        $data = compact('postType', 'posts');
+
+        return view('posts.index', $data);
     }
 
     public function hot() {
-        return view('posts.index');
+        $postType = '熱門文章';
+
+        $posts = \App\Models\Post::orderBy('page_view', 'desc')
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+        $data = compact('postType', 'posts');
+        return view('posts.index', $data);
     }
 
     public function random() {
-        $id = rand(1, 10);
-        $data = compact('id');
+        $id = rand(1, 20);
+
+        $post = \App\Models\Post::find($id);
+
+        $data = compact('post');
+
         return view('posts.show', $data);
     }
 
@@ -29,7 +46,10 @@ class PostsController extends Controller {
     }
 
     public function show($id) {
-        $data = compact('id');
+        $post = \App\Models\Post::find($id);
+        
+        $data = compact('post');
+        
         return view('posts.show', $data);
     }
 
