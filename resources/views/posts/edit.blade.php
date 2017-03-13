@@ -58,8 +58,7 @@
                     {!! Form::submit('送出', ['class' => 'btn btn-primary']) !!}
                 </div>
             </div>
-            </form>
-            <!! Form::close() !!}
+            {!! Form::close() !!}
         </div>
     </div>
 </div>
