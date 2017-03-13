@@ -38,3 +38,7 @@ jQuery(document).ready(function($) {
             });
     }
 });
+
+//$("a[data-toggle=\"tab\"]").click(function (e) {
+//    e.proeventDefault();
+//})

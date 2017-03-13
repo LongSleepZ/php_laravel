@@ -21,6 +21,10 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="text-right">
+                <a href="{{route('posts.create')}}" class="btn btn-primary" role="botten">新增</a>
+            </div>
+            
             @foreach($posts as $post)
             <div class="post-preview">
                 <a href="{{route('posts.show',$post->id)}}">

@@ -47,6 +47,6 @@
             <script src="{{asset('js/contact_me.js')}}"></script>
 
             <!--Theme JavaScript--> 
-            <script src="{{asset('js/clean-blog.min.js')}}"></script>
+            <script src="{{asset('js/clean-blog.js')}}"></script>
         </body>
     </hteml>
