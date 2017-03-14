@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\CommentRequest;
+use App\Http\Requests\PostRequest;
 
 class PostsController extends Controller {
 
@@ -33,6 +35,11 @@ class PostsController extends Controller {
 
         $post = \App\Models\Post::all()->random();
 
+        if (is_null($post)) {
+            return redirect()->route('posts.index')
+                            ->with('warning', '目前沒有文章');
+        }
+
         $data = compact('post');
 
         return view('posts.show', $data);
@@ -45,6 +52,10 @@ class PostsController extends Controller {
     public function show($id) {
         $post = \App\Models\Post::find($id);
 
+        if (is_null($post)) {
+            return redirect()->route('posts.index')
+                            ->with('warning', '找不到該文章');
+        }
         $post->page_view += 1;
         $post->save();
 
@@ -57,37 +68,55 @@ class PostsController extends Controller {
 //        $data = compact('id');
         $post = \App\Models\Post::find($id);
 
+        if (is_null($post)) {
+            return redirect()->route('posts.index')
+                            ->with('warning', '找不到該文章');
+        }
+
         $data = compact('post');
         return view('posts.edit', $data);
     }
 
-    public function store(Request $request) {
-        //page_view 先隨便給個值...
+    public function store(PostRequest $request) {
         $inputData = $request->all();
-        $inputData['page_view'] = rand(1, 200);
+        $inputData['page_view'] = 0;
 
         $post = \App\Models\Post::create($inputData);
-        return redirect()->route('posts.show', $post->id);
+        return redirect()->route('posts.show', $post->id)
+                        ->with('success', '新增文章完成');
     }
 
-    public function update($id, Request $request) {
+    public function update($id, PostRequest $request) {
         $post = \App\Models\Post::find($id);
+
+        if (is_null($post)) {
+            return redirect()->route('posts.index')
+                            ->with('warning', '找不到該文章');
+        }
+
         $post->update($request->all());
 
-        return redirect()->route('posts.show', $post->id);
+        return redirect()->route('posts.show', $post->id)
+                        ->with('success', '文章更新完成');
     }
 
-    public function destroy($id, Request $request) {
+    public function destroy($id, CommentRequest $request) {
         $post = \App\Models\Post::find($id);
         foreach ($post->comments as $comment) {
             $comment->delete();
         }
         $post->delete();
-        return redirect()->route('posts.index');
+        return redirect()->route('posts.index')
+                        ->with('success', '刪除文章及留言成功');
     }
 
-    public function comment($id, Request $request) {
+    public function comment($id, CommentRequest $request) {
         $post = \App\Models\Post::find($id);
+
+        if (is_null($post)) {
+            return redirect()->route('posts.index')
+                            ->with('warning', '找不到該文章');
+        }
 
         $inputData = $request->all();
         $inputData['post_id'] = $post->id;
@@ -95,7 +124,8 @@ class PostsController extends Controller {
         $comment = \App\Models\Comment::create($inputData);
 
 //        $post->comments()->save($comment);
-        return redirect()->route('posts.show', $post->id);
+        return redirect()->route('posts.show', $post->id)
+                        ->with('success', '回覆留言成功');
     }
 
 }

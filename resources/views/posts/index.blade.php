@@ -21,6 +21,9 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            
+            @include('layouts.partials.notification')
+            
             <div class="text-right">
                 <a href="{{route('posts.create')}}" class="btn btn-primary" role="botten">新增</a>
             </div>
