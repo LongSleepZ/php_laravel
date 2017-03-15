@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ config('app.locale') }}">
 
     <hteml>
         <head>
@@ -8,6 +8,9 @@
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <meta name="description" content="">
             <meta name="author" content="">
+
+            <!-- CSRF Token -->
+            <meta name="csrf-token" content="{{ csrf_token() }}">
 
             <title>@yield('title')|Blog</title>
 
@@ -28,6 +31,13 @@
                 <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
                 <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
             <![endif]-->
+            <!-- Scripts -->
+            <script>
+                window.Laravel = {!! json_encode([
+                        'csrfToken' => csrf_token(),
+                ]) !!}
+                ;
+            </script>
         </head>
         <body>
             @include('layouts.partials.navigation')
@@ -48,5 +58,8 @@
 
             <!--Theme JavaScript--> 
             <script src="{{asset('js/clean-blog.js')}}"></script>
+
+            <!-- Scripts -->
+            <script src="{{ asset('js/app.js') }}"></script>
         </body>
     </hteml>

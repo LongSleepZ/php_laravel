@@ -27,6 +27,13 @@
                 <li>
                     <a href="{{ route('posts.random') }}">隨機文章</a>
                 </li>
+                <li>
+                    @if(Auth::check())
+                    <a href="{{ route('logout') }}">登出</a>
+                    @else
+                    <a href="{{ route('login') }}">登入</a>
+                    @endif
+                </li>
             </ul>
         </div>
     </div>

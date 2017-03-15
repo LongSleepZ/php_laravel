@@ -8,6 +8,10 @@ use App\Http\Requests\PostRequest;
 
 class PostsController extends Controller {
 
+    public function __construct() {
+        $this->middleware('auth');
+    }
+
     public function index() {
         $postType = '文章總覽';
 

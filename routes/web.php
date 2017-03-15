@@ -40,3 +40,9 @@ Route::patch('posts/{id}', ['as' => 'posts.update', 'uses' => 'PostsController@u
 Route::delete('posts/{id}', ['as' => 'posts.destroy', 'uses' => 'PostsController@destroy']);
 //新增回覆
 Route::post('posts/{id}/comment', ['as' => 'posts.comment', 'uses' => 'PostsController@comment']);
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
+//登出
+Route::get('/logout', 'Auth\LoginController@logout');
