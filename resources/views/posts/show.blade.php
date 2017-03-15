@@ -10,7 +10,7 @@
                 <div class="site-heading">
                     <h1>{{ $post->title }}</h1>
                     <h2 class="subheading">{{ $post->sub_title }}</h2>
-                    <span class="meta">由 <a href="#">Start Bootstrap</a> 發表於 {{ $post->created_at->toDateString() }}</span>
+                    <span class="meta">由 <a href="{{ route('posts.user',$post->user->id) }}">{{ $post->user->name }}</a> 發表於 {{ $post->created_at->toDateString() }}</span>
                 </div>
             </div>
         </div>
@@ -25,12 +25,14 @@
                 
                 @include('layouts.partials.notification')
                 
+                @if(Auth::check() && $post->user->id == Auth::user()->id)
                 <div class="text-right" style="margin-bottom: 50px;">
                     <a href="{{ route('posts.edit',$post->id)}}" class="btn btn-primary">編輯</a>
                     {!! Form::open(['route' => ['posts.destroy', $post->id], 'method' => 'delete', 'style' => 'display: inline;']) !!}
                     {!! Form::submit('刪除', ['class' => 'btn btn-danger']) !!}
                     {!! Form::close() !!}
                 </div>
+                @endif
 
                 <div style="margin-bottom: 30px;">
                     {!! $post->content !!}

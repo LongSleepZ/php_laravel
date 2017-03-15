@@ -31,4 +31,7 @@ class User extends Authenticatable {
        $this->notify(new \App\Notifications\ResetPassword($token));
     }
 
+     public function posts(){
+        return $this->hasMany('\App\Models\posts');
+    }
 }

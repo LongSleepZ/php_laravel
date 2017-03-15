@@ -15,7 +15,7 @@
 Route::pattern('id', '[0-9]+');
 
 //首頁
-Route::get('/', ['as' => 'home.index', 'uses' => 'HomeController@index']);
+Route::get('/', ['as' => 'home.index', 'uses' => 'AboutController@index']);
 
 //關於本站
 Route::get('about', ['as' => 'about.index', 'uses' => 'AboutController@index']);
@@ -40,6 +40,10 @@ Route::patch('posts/{id}', ['as' => 'posts.update', 'uses' => 'PostsController@u
 Route::delete('posts/{id}', ['as' => 'posts.destroy', 'uses' => 'PostsController@destroy']);
 //新增回覆
 Route::post('posts/{id}/comment', ['as' => 'posts.comment', 'uses' => 'PostsController@comment']);
+//我的文章
+Route::get('my', ['as' => 'posts.my', 'uses' => 'PostsController@my']);
+//使用者文章
+Route::get('posts/user/{id}', ['as' => 'posts.user', 'uses' => 'PostsController@user']);
 
 Auth::routes();
 

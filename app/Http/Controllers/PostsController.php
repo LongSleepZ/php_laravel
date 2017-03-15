@@ -9,7 +9,37 @@ use App\Http\Requests\PostRequest;
 class PostsController extends Controller {
 
     public function __construct() {
-        $this->middleware('auth');
+        $this->middleware('auth', ['only' => ['my', 'create', 'store', 'edit', 'update', 'destroy']]);
+    }
+
+    public function my() {
+        $postType = '我的文章';
+
+        $posts = \App\Models\Post::where('user_id', \Auth::user()->id)
+                ->orderBy('created_at', 'desc')
+                ->paginate(5);
+
+        $data = compact('postType', 'posts');
+
+        return view('posts.index', $data);
+    }
+
+    public function user($id) {
+        $user = \App\User::find($id);
+
+        if (is_null($user)) {
+            return redirect()->route('posts.index')->with('warning', '查無使用者');
+        }
+
+        $postType = $user->name . '的文章';
+
+        $posts = \App\Models\Post::where('user_id', $user->id)
+                ->orderBy('created_at', 'desc')
+                ->paginate(5);
+
+        $data = compact('postType', 'posts');
+
+        return view('posts.index', $data);
     }
 
     public function index() {
@@ -36,7 +66,6 @@ class PostsController extends Controller {
     }
 
     public function random() {
-
         $post = \App\Models\Post::all()->random();
 
         if (is_null($post)) {
@@ -77,6 +106,11 @@ class PostsController extends Controller {
                             ->with('warning', '找不到該文章');
         }
 
+        if ($post && $post->user->id != \Auth::user()->id) {
+            return redirect()->routee('posts.index')
+                            ->with('warning', '您無權限編輯此文章');
+        }
+
         $data = compact('post');
         return view('posts.edit', $data);
     }
@@ -106,6 +140,17 @@ class PostsController extends Controller {
 
     public function destroy($id, CommentRequest $request) {
         $post = \App\Models\Post::find($id);
+
+        if (is_null($post)) {
+            return redirect()->route('posts.index')
+                            ->with('warning', '找不到該文章');
+        }
+        
+        if ($post && $post->user->id != \Auth::user()->id) {
+            return redirect()->routee('posts.index')
+                            ->with('warning', '您無權限刪除此文章');
+        }
+
         foreach ($post->comments as $comment) {
             $comment->delete();
         }

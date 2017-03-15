@@ -24,9 +24,11 @@
             
             @include('layouts.partials.notification')
             
+            @if (Auth::check())
             <div class="text-right">
                 <a href="{{route('posts.create')}}" class="btn btn-primary" role="botten">新增</a>
             </div>
+            @endif
             
             @foreach($posts as $post)
             <div class="post-preview">
@@ -36,7 +38,7 @@
                 <h3 class="post-subtitle">
                    
                 </h3>
-                <p class="post-meta">由 <a href="#">Start Bootstrap</a> 發表於 {{ $post->created_at->toDateString() }}</p>
+                <p class="post-meta">由 <a href="{{ route('posts.user',$post->user->id)}}">{{$post->user->name}}</a> 發表於 {{ $post->created_at->toDateString() }}</p>
             </div>
             <hr>
             @endforeach

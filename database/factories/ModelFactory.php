@@ -23,6 +23,15 @@
 //    ];
 //});
 
+$factory->define(App\User::class, function(Faker\Generator $faker) {
+    return [
+        'name' => $faker->name,
+        'email' => $faker->email,
+        'password' => str_random(10),
+        'remember_token' => str_random(10),
+    ];
+});
+
 $factory->define(App\Models\Post::class, function(Faker\Generator $faker) {
     return [
         'title' => $faker->sentence,
@@ -32,6 +41,7 @@ $factory->define(App\Models\Post::class, function(Faker\Generator $faker) {
         'page_view' => rand(0, 200),
         'created_at' => $faker->dateTime(),
         'updated_at' => $faker->dateTime(),
+        'user_id' => rand(1, 2),
     ];
 });
 
@@ -45,3 +55,4 @@ $factory->define(App\Models\Comment::class, function(Faker\Generator $faker) {
         'updated_at' => $faker->dateTime(),
     ];
 });
+

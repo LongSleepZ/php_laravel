@@ -21,9 +21,8 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <p>一些內容....</p>
-                <p>想想......</p>
-                <p>恩...跳過...</p>
+                <p>初學PHP</p>
+                <p>以Laravel 5.4框架入門</p>
             </div>
         </div>
     </div>
