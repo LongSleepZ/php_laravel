@@ -173,8 +173,9 @@ class PostsController extends Controller {
         $comment = \App\Models\Comment::create($inputData);
 
 //        $post->comments()->save($comment);
-        return redirect()->route('posts.show', $post->id)
-                        ->with('success', '回覆留言成功');
+//        return redirect()->route('posts.show', $post->id)
+//                        ->with('success', '回覆留言成功');
+        return response()->json($comment);
     }
 
 }

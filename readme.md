@@ -21,6 +21,7 @@
 	9. 資料驗證 Form Request Validation
 	10. 使用者認證 Auth
 	11. Git 版本管控
+ 	12. ajax
 
 參考資料
 ------
@@ -29,3 +30,4 @@
 * Laravel (https://laravel.tw/)
 * Start Bootstrap 前端樣板 (https://startbootstrap.com/)
 * Bootstrap (http://getbootstrap.com/)
+* Tutorials.kode-blog (https://tutorials.kode-blog.com/)

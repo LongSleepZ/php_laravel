@@ -39,7 +39,7 @@
                 </div>
 
                 <!-- Comments Form -->
-                <div class="well">
+                <!-- <div class="well">
                     <h4>留下您的意見：</h4>
                     {!! Form::open(['route'=>['posts.comment',$post->id], 'method' => 'post', 'role' => 'form']) !!}
                     <div class="form-group">
@@ -54,11 +54,30 @@
                     </div>
                     {!! Form::submit('送出',['class'=>'btn btn-primary']) !!}
                     {!! Form::close()!!}
-                </div>
+                </div>-->
+                
+                <!-- Comments Form (ajax)-->
+                <div id="commentDiv" class="well">
+                    <input type="hidden" id="post_id" value='{{$post->id}}'>
+                    <meta name="_token" content="{!! csrf_token() !!}" />
+                    <h4>留下您的意見：</h4>
+                    <div class="form-group">
+                        <label>姓名：</label>
+                        <input type="text"  id='name' class = 'form-control'　required></input>
 
+                        <label>Email：</label>
+                        <input type="text"  id ='email' class='form-control' required></input>
+
+                        <label>內文：</label>
+                        <textarea id ='content' rows=3  class='form-control' required></textarea>
+                    </div>
+                    <button id='addComment' class='btn btn-primary'>送出</button>
+                </div>
+                
                 <hr>
 
                 <!-- Posted Comments -->
+                <div id='comment-list'>
                 @foreach($post->comments as $comment)
                 <div class="media">
                     <div class="media-body">
@@ -69,9 +88,15 @@
                     </div>
                 </div>
                 @endforeach
+                </div>
 
             </div>
         </div>
     </div>
 </article>
+@endsection
+
+@section('extraJs')
+ <!-- Scripts ajax-->
+<script src="{{ asset('js/posts/show-ajax.js') }}"></script>
 @endsection
